@@ -3,6 +3,7 @@ import routes from './routes';
 import dotenv from 'dotenv';
 import { initDB } from './database/db';
 import { loadCsv } from './utils/csvLoader';
+import { getProducerIntervals } from './services/intervalsService';
 
 dotenv.config();
 
@@ -15,6 +16,8 @@ app.use('/api', routes);
 const startServer = async (): Promise<void> => {
   await initDB();
   await loadCsv('../../data/movielist.csv');
+  const intervals = await getProducerIntervals();
+  console.log(intervals);
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
