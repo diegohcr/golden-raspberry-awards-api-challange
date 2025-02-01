@@ -1,6 +1,7 @@
 import express from 'express';
 import routes from './routes';
 import dotenv from 'dotenv';
+import { initDB } from './database/db';
 
 dotenv.config();
 
@@ -10,8 +11,16 @@ const PORT = process.env.PORT != null || 3000;
 app.use(express.json());
 app.use('/api', routes);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+const startServer = async (): Promise<void> => {
+  await initDB();
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  });
+};
+
+startServer().catch((error) => {
+  console.error('Failed to start the server:', error);
 });
 
 export default app;
