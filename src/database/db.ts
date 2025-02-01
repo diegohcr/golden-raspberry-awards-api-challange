@@ -4,6 +4,7 @@ const db = new sqlite3.Database(':memory:');
 
 const initDB = async (): Promise<void> => {
   db.serialize(() => {
+    db.run('DROP TABLE IF EXISTS movies');
     db.run(`
         CREATE TABLE movies (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
