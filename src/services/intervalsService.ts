@@ -24,28 +24,19 @@ export const getProducerIntervals = async (): Promise<any> => {
   const producerWins: Record<string, number[]> = {};
 
   movies.forEach((movie: any) => {
-    // console.log(
-    //   `In ${movie.year}, ${movie.producers} won the Golden Raspberry Awards`,
-    // );
     const normalizedProducers = movie.producers.replace(/\s+and\s+/g, ', ');
     normalizedProducers.split(', ').map((producer: string) => {
       const cleanProducer = producer.trim();
-      // console.log(
-      //   `In ${movie.year}, ${cleanProducer} won the Golden Raspberry Awards`,
-      // );
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!producerWins[cleanProducer]) {
         producerWins[cleanProducer] = [];
       }
       producerWins[cleanProducer].push(movie.year);
-      // return cleanProducer;
     });
-    // console.log(producers);
   });
 
   const producerIntervals: ProducerInterval[] = [];
 
-  console.log(producerWins);
   for (const producer in producerWins) {
     const wins = producerWins[producer].sort((a, b) => a - b);
     if (wins.length > 1) {
@@ -59,8 +50,6 @@ export const getProducerIntervals = async (): Promise<any> => {
       }
     }
   }
-
-  console.log(producerIntervals);
 
   if (producerIntervals.length === 0) {
     return { min: [], max: [] };
