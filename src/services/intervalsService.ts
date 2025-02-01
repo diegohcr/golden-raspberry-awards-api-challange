@@ -1,4 +1,5 @@
 import { db } from '../database/db';
+import { type MovieType } from '../models/Movie';
 
 interface ProducerInterval {
   producers: string;
@@ -8,7 +9,7 @@ interface ProducerInterval {
 }
 
 export const getProducerIntervals = async (): Promise<any> => {
-  const movies: any = await new Promise((resolve, reject) => {
+  const movies: MovieType[] = await new Promise((resolve, reject) => {
     db.all(
       'SELECT year, producers FROM movies WHERE winner = 1',
       (err, rows) => {
@@ -16,7 +17,7 @@ export const getProducerIntervals = async (): Promise<any> => {
         if (err) {
           reject(err);
         } else {
-          resolve(rows);
+          resolve(rows as MovieType[]);
         }
       },
     );
