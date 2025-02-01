@@ -3,7 +3,7 @@ import path from 'path';
 import csvParser from 'csv-parser';
 import { db } from '../database/db';
 
-export const loadCsv = async (csvFilePath: string) => {
+export const loadCsv = async (csvFilePath: string): Promise<boolean> => {
   const filePath = path.join(__dirname, csvFilePath);
 
   return await new Promise((resolve, reject) => {

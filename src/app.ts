@@ -1,7 +1,7 @@
 import express from 'express';
 import routes from './routes';
 import dotenv from 'dotenv';
-import { getData, initDB } from './database/db';
+import { initDB } from './database/db';
 import { loadCsv } from './utils/csvLoader';
 
 dotenv.config();
@@ -15,7 +15,6 @@ app.use('/api', routes);
 const startServer = async (): Promise<void> => {
   await initDB();
   await loadCsv('../../data/movielist.csv');
-  //   await getData();
 
   app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
