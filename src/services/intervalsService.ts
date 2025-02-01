@@ -12,6 +12,7 @@ export const getProducerIntervals = async (): Promise<any> => {
     db.all(
       'SELECT year, producers FROM movies WHERE winner = 1',
       (err, rows) => {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (err) {
           reject(err);
         } else {
@@ -25,7 +26,7 @@ export const getProducerIntervals = async (): Promise<any> => {
 
   movies.forEach((movie: any) => {
     const normalizedProducers = movie.producers.replace(/\s+and\s+/g, ', ');
-    normalizedProducers.split(', ').map((producer: string) => {
+    normalizedProducers.split(', ').forEach((producer: string) => {
       const cleanProducer = producer.trim();
       // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
       if (!producerWins[cleanProducer]) {

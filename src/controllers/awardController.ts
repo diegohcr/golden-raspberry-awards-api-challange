@@ -1,7 +1,10 @@
 import { type Request, type Response } from 'express';
 import { getProducerIntervals } from '../services/intervalsService';
 
-export const getIntervals = async (req: Request, res: Response) => {
+export const getIntervals = async (
+  req: Request,
+  res: Response,
+): Promise<void> => {
   try {
     const result = await getProducerIntervals();
     res.status(200).json(result);
