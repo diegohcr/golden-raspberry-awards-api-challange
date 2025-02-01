@@ -15,6 +15,20 @@ const initDB = async (): Promise<void> => {
         );    
     `);
   });
-  console.log('Database initialized');
+  console.log('Database initialized successfully');
 };
-export { db, initDB };
+
+// funtion to get data and verify if the database is working and with the data
+const getData = async (): Promise<any> => {
+  return await new Promise((resolve, reject) => {
+    db.all('SELECT * FROM movies', (error, rows) => {
+      if (error != null) {
+        reject(error);
+      } else {
+        console.log('rows', rows);
+        resolve(rows);
+      }
+    });
+  });
+};
+export { db, initDB, getData };
