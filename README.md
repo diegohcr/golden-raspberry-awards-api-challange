@@ -16,21 +16,18 @@ API RESTful para análise dos vencedores da categoria pior filme do Golden Raspb
 
 ### Clonar o Repositório
 ```bash
-git clone https://github.com/seu-usuario/golden-raspberry-api.git
-cd golden-raspberry-api
+git clone https://github.com/diegohcr/golden-raspberry-awards-api-challange.git
+cd golden-raspberry-awards-api-challange
 
 ### Instalar Dependências
-```bash
 npm install
 
 ### Executar a aplicação
-```bash
 npm run dev
 
 **O servidor estará disponível em http://localhost:3000**
 
 ### Executar os testes
-```bash
 npm test
 
 ##Endpoints
