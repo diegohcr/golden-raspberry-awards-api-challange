@@ -14,7 +14,7 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
-  await new Promise((resolve) => {
+  await new Promise((resolve, reject) => {
     db.serialize(() => {
       db.run('DELETE FROM movies');
       db.run(
@@ -33,7 +33,10 @@ beforeEach(async () => {
         (2002, 'Movie L', 'Studio E', 'Producer H', 1),
         (2004, 'Movie M', 'Studio E', 'Producer H', 1),
         (2024, 'Movie N', 'Studio E', 'Producer H', 1)`,
-        resolve,
+        (err) => {
+          if (err != null) reject(err);
+          else resolve(true);
+        },
       );
     });
   });
