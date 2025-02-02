@@ -1,6 +1,6 @@
 # Golden Raspberry Awards API - Challenge
 
-API RESTful para análise dos vencedores do prêmio "Pior Filme" do Golden Raspberry Awards.
+API RESTful para análise dos vencedores da categoria pior filme do Golden Raspberry Awards.
 
 ## Tecnologias Utilizadas
 - **Node.js** com **Express**
