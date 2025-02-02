@@ -12,7 +12,7 @@ API RESTful para análise dos vencedores da categoria pior filme do Golden Raspb
 
 ## Instalação e Execução
 
-### O arquivo movieList.csv deve estar localizado dentro da pasta **data**, na raiz do projeto.
+### O arquivo movielist.csv deve estar localizado dentro da pasta /data, na raiz do projeto.
 
 ### Clonar o Repositório
 ```bash
