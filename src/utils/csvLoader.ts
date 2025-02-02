@@ -7,7 +7,9 @@ export const loadCsv = async (csvFilePath: string): Promise<boolean> => {
   const filePath = path.join(__dirname, csvFilePath);
 
   return await new Promise((resolve, reject) => {
+    // read the csv file
     fs.createReadStream(filePath)
+      // parse the csv
       .pipe(csvParser({ separator: ';' }))
       .on('data', (row) => {
         const movie = {
@@ -15,7 +17,7 @@ export const loadCsv = async (csvFilePath: string): Promise<boolean> => {
           title: row.title,
           studios: row.studios,
           producers: row.producers,
-          winner: row.winner === 'yes',
+          winner: row.winner === 'yes', // convert 'yes' to true
         };
         db.run(
           'INSERT INTO movies (year, title, studios, producers, winner) VALUES (?, ?, ?, ?, ?)',
