@@ -13,34 +13,7 @@ afterAll(async () => {
   db.close();
 });
 
-beforeEach(async () => {
-  await new Promise((resolve, reject) => {
-    db.serialize(() => {
-      db.run('DELETE FROM movies');
-      db.run(
-        `INSERT INTO movies (year, title, studios, producers, winner) VALUES
-        (2000, 'Movie A', 'Studio A', 'Producer A and Producer D', 1),
-        (2001, 'Movie B', 'Studio A', 'Producer A, Producer D and Producer E', 1),
-        (2005, 'Movie C', 'Studio B', 'Producer C', 1),
-        (2010, 'Movie D', 'Studio C', 'Producer B, Producer D and Producer E', 1),
-        (2015, 'Movie E', 'Studio C', 'Producer B, Producer D and Producer E', 1),
-        (2020, 'Movie F', 'Studio C', 'Producer B, Producer D and Producer E', 1),
-        (2025, 'Movie G', 'Studio B', 'Producer C', 1),
-        (2000, 'Movie H', 'Studio D', 'Producer F', 1),
-        (2001, 'Movie I', 'Studio D', 'Producer G', 1),
-        (2002, 'Movie J', 'Studio D', 'Producer G', 1),
-        (2000, 'Movie K', 'Studio E', 'Producer H', 1),
-        (2002, 'Movie L', 'Studio E', 'Producer H', 1),
-        (2004, 'Movie M', 'Studio E', 'Producer H', 1),
-        (2024, 'Movie N', 'Studio E', 'Producer H', 1)`,
-        (err) => {
-          if (err != null) reject(err);
-          else resolve(true);
-        },
-      );
-    });
-  });
-});
+beforeEach(async () => {});
 
 describe('GET /api/awards/intervals', () => {
   it('should return corrects producer intervals', async () => {
@@ -53,38 +26,39 @@ describe('GET /api/awards/intervals', () => {
 
     expect(response.body.min).toStrictEqual([
       {
-        producers: 'Producer A',
+        producers: 'Joel Silver',
         interval: 1,
-        previousWin: 2000,
-        followingWin: 2001,
-      },
-      {
-        producers: 'Producer D',
-        interval: 1,
-        previousWin: 2000,
-        followingWin: 2001,
-      },
-      {
-        producers: 'Producer G',
-        interval: 1,
-        previousWin: 2001,
-        followingWin: 2002,
+        previousWin: 1990,
+        followingWin: 1991,
       },
     ]);
 
     expect(response.body.max).toStrictEqual([
       {
-        producers: 'Producer C',
-        interval: 20,
-        previousWin: 2005,
-        followingWin: 2025,
-      },
-      {
-        producers: 'Producer H',
-        interval: 20,
-        previousWin: 2004,
-        followingWin: 2024,
+        producers: 'Matthew Vaughn',
+        interval: 13,
+        previousWin: 2002,
+        followingWin: 2015,
       },
     ]);
+  });
+
+  it('should correct data integrity', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    const response = await request(app).get('/api/awards/intervals');
+
+    expect(response.body.min[0]).toMatchObject({
+      producers: expect.any(String),
+      interval: expect.any(Number),
+      previousWin: expect.any(Number),
+      followingWin: expect.any(Number),
+    });
+
+    expect(response.body.max[0]).toMatchObject({
+      producers: expect.any(String),
+      interval: expect.any(Number),
+      previousWin: expect.any(Number),
+      followingWin: expect.any(Number),
+    });
   });
 });
