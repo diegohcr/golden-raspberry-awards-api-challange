@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import fs from 'fs';
 import path from 'path';
 import csvParser from 'csv-parser';
@@ -19,6 +20,14 @@ export const loadCsv = async (csvFilePath: string): Promise<boolean> => {
           producers: row.producers,
           winner: row.winner === 'yes', // convert 'yes' to true
         };
+        if (!movie.year || !movie.title || !movie.studios || !movie.producers) {
+          reject(
+            new Error(
+              'Invalid csv file format. One or more fields are empty (year, title, studios, producers or winner)',
+            ),
+          );
+          return;
+        }
         db.run(
           'INSERT INTO movies (year, title, studios, producers, winner) VALUES (?, ?, ?, ?, ?)',
           [

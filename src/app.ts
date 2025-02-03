@@ -17,7 +17,9 @@ const startServer = async (): Promise<any> => {
 
   const server = app.listen(3000, () => {
     console.log(`Server is running on http://localhost:3000`);
-    console.log('Access: http://localhost:3000/api/awards/intervals to check the results');
+    console.log(
+      'Access: http://localhost:3000/api/awards/intervals to check the results',
+    );
   });
 
   return server;
