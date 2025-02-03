@@ -27,9 +27,18 @@ cd golden-raspberry-awards-api-challange
 npm install
 ````
 
-### Executar a aplicação
+### Executar a aplicação modo desenvolvimento
 ```bash
 npm run dev
+````
+
+### Build
+```bash
+npm run build
+````
+### Executar o build
+```bash
+npm start
 ````
 
 **O servidor estará disponível em http://localhost:3000 se estiver rodando localmente**
